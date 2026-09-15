@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:adv_basics/start_screen.dart';
 import 'package:adv_basics/questions_screen.dart';
-import 'package:adv_basics/data/questions.dart';
 import 'package:adv_basics/results_screen.dart';
+import 'package:adv_basics/data/questions.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -34,9 +34,10 @@ class _QuizState extends State<Quiz> {
     }
   }
 
-  void restartQuiz() {
+  void _restartQuiz() {
     setState(() {
-      _activeScreen = 'questions-screen';
+      _selectedAnswers.clear();
+      _activeScreen = 'start-screen';
     });
   }
 
@@ -53,7 +54,7 @@ class _QuizState extends State<Quiz> {
     if (_activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(
         chosenAnswers: _selectedAnswers,
-        onRestart: restartQuiz,
+        onRestart: _restartQuiz,
       );
     }
 
@@ -63,11 +64,11 @@ class _QuizState extends State<Quiz> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(255, 78, 13, 151),
-                Color.fromARGB(255, 107, 15, 168),
+                Color(0xFF3368A0),
+                Color(0xFFF2EFE7),
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
           child: screenWidget,
