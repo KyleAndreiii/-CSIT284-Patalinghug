@@ -23,10 +23,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   void answerQuestion(String selectedAnswer) {
     widget.onSelectAnswer(selectedAnswer);
-    // currentQuestionIndex = currentQuestionIndex + 1;
-    // currentQuestionIndex += 1;
+
     setState(() {
-      currentQuestionIndex++; // increments the value by 1
+      currentQuestionIndex++;
     });
   }
 
@@ -36,30 +35,53 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
     return SizedBox(
       width: double.infinity,
-      child: Container(
-        margin: const EdgeInsets.all(40),
+      child: Padding(
+        padding: const EdgeInsets.all(25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              currentQuestion.text,
+              'Question ${currentQuestionIndex + 1}',
+              textAlign: TextAlign.center,
               style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 201, 153, 251),
-                fontSize: 24,
+                color: const Color(0xFFFDF4D2),
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
-              textAlign: TextAlign.center,
             ),
+
+            const SizedBox(height: 15),
+
+            Container(
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFDF4D2),
+                borderRadius: BorderRadius.circular(22),
+              ),
+              child: Text(
+                currentQuestion.text,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.lato(
+                  color: const Color(0xFF3368A0),
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
             const SizedBox(height: 30),
-            ...currentQuestion.shuffledAnswers.map((answer) {
-              return AnswerButton(
-                answerText: answer,
-                onTap: () {
-                  answerQuestion(answer);
-                },
-              );
-            })
+
+            ...currentQuestion.shuffledAnswers.map(
+              (answer) {
+                return AnswerButton(
+                  answerText: answer,
+                  onTap: () {
+                    answerQuestion(answer);
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
