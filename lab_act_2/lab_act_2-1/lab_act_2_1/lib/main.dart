@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab_act_2_1/dice_roller.dart';
  
- 
 void main() {
   runApp(
     MaterialApp(
@@ -17,7 +16,7 @@ void main() {
             ),
           ),
           child: Center(
-            child: DiceRoller()
+            child: DiceRoller(),
           ),
         ),
       ),
