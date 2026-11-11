@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shopping_list/data/dummy_items.dart';
 import 'package:shopping_list/models/grocery_item.dart';
 import 'package:shopping_list/widgets/new_item.dart';
+import 'package:http/http.dart' as http;
+
  
 class GroceryList extends StatefulWidget {
   const GroceryList({super.key});
@@ -14,6 +16,13 @@ class GroceryList extends StatefulWidget {
 class _GroceryListState extends State<GroceryList> {
  
   List<GroceryItem> _groceryItems = [];
+
+  void _loadItems() async https {
+    final url = Uri.https(
+      'flutter-apps-74e2a-default-rtdb.asia-southeast1.firebasedatabase.app',
+      'shopping-list.json'
+    )
+  }
  
   void _addItem() async {
     final newItem = await Navigator.of(context).push(
@@ -32,19 +41,19 @@ class _GroceryListState extends State<GroceryList> {
   Widget build(BuildContext context) {
     Widget content =  ListView.builder(
         itemCount: _groceryItems.length,
-        itemBuilder: (ctx, index) => ListTile(
+        itemBuilder: (ctx, index) => Dismissible(
+          key: ValueKey(_groceryItems[index].id),
+          child:ListTile(
           title: Text(_groceryItems[index].name),
           leading: Container(
-            width: 24,
-            height: 24,
+            width: 24, height: 24,
             color: _groceryItems[index].category.color,
           ),
-          trailing: Text(
-            _groceryItems[index].quantity.toString(),
+          trailing: Text(_groceryItems[index].quantity.toString(),
           ),
         ),
-      );
- 
+      ),
+    );
       if(_groceryItems.isEmpty){
         content = const Center(
           child: Text('No items added yet.'),
@@ -61,4 +70,6 @@ class _GroceryListState extends State<GroceryList> {
     );
   }
 }
+ 
+ 
  
